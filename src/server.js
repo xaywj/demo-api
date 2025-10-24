@@ -10,8 +10,6 @@ const resolvers = require('./graphql/resolvers');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const { sequelize } = require('./config/database');
-import cors from "cors";
-
 
 // Load environment variables with validation
 dotenv.config();
@@ -31,9 +29,7 @@ app.use(helmet({
 
 // Configure CORS
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",").map((url) => url.trim())
-  : "*",
+  origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true

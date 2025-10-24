@@ -29,9 +29,7 @@ app.use(helmet({
 
 // Configure CORS
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",").map((url) => url.trim())
-  : "*",
+  origin: "*",
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true

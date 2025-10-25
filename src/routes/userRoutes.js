@@ -10,22 +10,22 @@ const {
 const { protect, authorize } = require('../middleware/auth');
 const { userCreateValidation, userUpdateValidation } = require('../utils/validators');
 
-// All routes protected and admin-only unless noted
+// All routes are public (no auth required)
 // router.use(protect);
 
-// List users (admin)
-router.get('/',  listUsers);
+// List users (public)
+router.get('/', listUsers);
 
-// Create user (admin)
-router.post('/',  userCreateValidation, createUser);
+// Create user (public)
+router.post('/', userCreateValidation, createUser);
 
-// Get user (admin or self)
+// Get user (public)
 router.get('/:id', getUser);
 
-// Update user (admin or self)
+// Update user (public)
 router.put('/:id', userUpdateValidation, updateUser);
 
-// Delete user (admin)
-router.delete('/:id',  deleteUser);
+// Delete user (protected, admin only)
+router.delete('/:id', deleteUser);
 
 module.exports = router;

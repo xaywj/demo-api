@@ -1,17 +1,19 @@
 version: '3.8'
 
 services:
-  # Node.js Application
+  # Node.js Application (Production)
   app:
-    build: .
-    container_name: demo-api-app
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: demo-api-app-prod
     restart: unless-stopped
     ports:
-      - "${PORT:-3001}:${PORT:-3001}"
+      - "${PORT:-3001}:3001"
     env_file:
       - .env
     environment:
-      - NODE_ENV=${NODE_ENV:-development}
+      - NODE_ENV=production
       - PORT=${PORT:-3001}
       - DB_HOST=${DB_HOST:-host.docker.internal}
       - DB_PORT=${DB_PORT:-3306}
@@ -24,9 +26,6 @@ services:
       - EMAIL_USERNAME=${EMAIL_USERNAME}
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
       - EMAIL_FROM=${EMAIL_FROM}
-    volumes:
-      - .:/app
-      - /app/node_modules
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
@@ -34,4 +33,4 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
+      start_period: 40s

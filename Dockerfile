@@ -5,8 +5,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # คัดลอก package files
-COPY package*.json ./
-COPY yarn.lock ./
+COPY package*.json ./ 
 
 # ติดตั้ง dependencies
 RUN npm install
@@ -17,5 +16,9 @@ COPY . .
 # เปิด port
 EXPOSE 5009
 
-# รัน development mode
-CMD ["npm", "run", "dev"]
+# สร้าง script สำหรับรัน seed และ start server
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# รัน entrypoint script
+ENTRYPOINT ["docker-entrypoint.sh"]

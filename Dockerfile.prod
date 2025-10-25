@@ -1,0 +1,29 @@
+# Production Dockerfile
+FROM node:18-alpine
+
+# ตั้งค่า working directory
+WORKDIR /app
+
+# คัดลอก package files
+COPY package*.json ./
+COPY yarn.lock ./
+
+# ติดตั้ง dependencies (production only)
+RUN npm install --only=production
+
+# คัดลอก source code
+COPY . .
+
+# สร้าง user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nodejs -u 1001
+
+# เปลี่ยน ownership
+RUN chown -R nodejs:nodejs /app
+USER nodejs
+
+# เปิด port
+EXPOSE 3001
+
+# รัน production server
+CMD ["npm", "start"]

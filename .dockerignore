@@ -20,8 +20,8 @@ logs
 .gitignore
 
 # Docker
-Dockerfile
-docker-compose.yml
+Dockerfile.prod
+docker-compose.prod.yml
 .dockerignore
 
 # Documentation

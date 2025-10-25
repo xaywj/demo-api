@@ -19,25 +19,47 @@ DB_PASSWORD=
 JWT_SECRET=your-super-secret-jwt-key
 ```
 
-### 2. รัน Development Mode
+### 2. รัน Development Mode (Auto Seed Products)
 ```bash
-# รัน application
+# รัน application (จะ seed products อัตโนมัติ)
 docker-compose up -d
 
 # ดู logs
 docker-compose logs -f app
 ```
 
-### 3. หยุด Application
+### 3. รัน Production Mode
+```bash
+# รัน production (ไม่ seed products)
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+### 4. Seed Products แยกต่างหาก
+```bash
+# รัน seed products ใน container ที่รันอยู่
+docker-compose exec app npm run seed:products
+
+# หรือรัน script แยก
+chmod +x docker-seed-products.sh
+./docker-seed-products.sh
+```
+
+### 5. หยุด Application
 ```bash
 # หยุด services
 docker-compose down
+
+# หยุด production
+docker-compose -f docker-compose.prod.yml down
 ```
 
-### 4. Rebuild (ถ้าแก้ไขโค้ด)
+### 6. Rebuild (ถ้าแก้ไขโค้ด)
 ```bash
-# Rebuild และรันใหม่
+# Rebuild development
 docker-compose up --build -d
+
+# Rebuild production
+docker-compose -f docker-compose.prod.yml up --build -d
 ```
 
 ## 🌐 Access URLs

@@ -9,6 +9,7 @@ const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
 const { sequelize } = require('./config/database');
 
 // Load environment variables with validation
@@ -61,6 +62,7 @@ connectWithRetry();
 // REST API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
 
 // Enhanced health check endpoint
 app.get('/health', (req, res) => {

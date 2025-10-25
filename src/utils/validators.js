@@ -32,3 +32,15 @@ exports.userUpdateValidation = [
   check('password').optional().isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
   check('role').optional().isIn(['user', 'admin']).withMessage('Invalid role')
 ];
+
+// Product validation
+exports.productValidation = [
+  check('name', 'Product name is required').not().isEmpty(),
+  check('name', 'Product name must be at least 2 characters').isLength({ min: 2 }),
+  check('price', 'Price is required').not().isEmpty(),
+  check('price', 'Price must be a valid number').isNumeric(),
+  check('price', 'Price must be greater than 0').isFloat({ min: 0.01 }),
+  check('stock', 'Stock must be a valid number').optional().isInt({ min: 0 }),
+  check('detail').optional().isLength({ max: 1000 }).withMessage('Detail too long'),
+  check('img').optional().isURL().withMessage('Image must be a valid URL')
+];
